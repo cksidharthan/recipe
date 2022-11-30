@@ -4,14 +4,14 @@ import com.abn.recipe.controller.RecipeController;
 import com.abn.recipe.dao.RecipeRepository;
 import com.abn.recipe.entity.Recipe;
 import com.abn.recipe.service.RecipeService;
+import java.util.List;
+import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
-import java.util.List;
 
-/*
-  * This class is used to handle all the business logic related to Recipe
+/**
+  * This class is used to handle all the business logic related to Recipe.
  */
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -22,6 +22,12 @@ public class RecipeServiceImpl implements RecipeService {
     this.recipeRepository = recipeRepository;
   }
 
+  /**
+   * This method is used to get a recipe by id from the database.
+   *
+   * @param id
+   *
+   */
   @Transactional
   public void deleteRecipeById(Integer id) throws Exception {
     logger.info("Deleting recipe with id: " + id);
@@ -33,6 +39,10 @@ public class RecipeServiceImpl implements RecipeService {
     }
   }
 
+  /**
+   * This method is used to get a recipe by id from the database.
+   *
+   */
   @Transactional
   public void deleteAllRecipes() throws Exception {
     logger.debug("Deleting all recipes from database");
@@ -44,6 +54,14 @@ public class RecipeServiceImpl implements RecipeService {
     }
   }
 
+  /**
+   * This method is used to get a recipe by id from the database.
+   *
+   * @param recipe
+   *
+   * @return Recipe
+   *
+   */
   @Transactional
   public Recipe updateRecipe(Recipe recipe) throws Exception {
     logger.debug("Updating recipe with id: " + recipe.getId());
@@ -55,6 +73,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
   }
 
+  /**
+   * This method is used to get a recipe by id from the database.
+   *
+   * @param recipe
+   *
+   * @return Recipe
+   */
   @Transactional
   public Recipe saveRecipe(Recipe recipe) throws Exception {
     logger.debug("Saving recipe to database");
@@ -66,6 +91,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
   }
 
+  /**
+   * This method is used to get a recipe by id from the database.
+   *
+   * @param id
+   *
+   * @return Recipe
+   */
   @Transactional
   public Recipe getRecipeById(Integer id) throws Exception {
     logger.debug("Getting all recipe from database");
@@ -77,6 +109,11 @@ public class RecipeServiceImpl implements RecipeService {
     }
   }
 
+  /**
+   * This method is used to get all recipes from the database.
+   *
+   * @return list of recipes
+   */
   @Transactional
   public List<Recipe> getAllRecipes() throws Exception {
     logger.debug("Getting all recipes from database");
