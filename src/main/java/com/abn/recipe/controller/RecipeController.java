@@ -17,96 +17,146 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+  * This class is used to handle all the requests related to Recipe.
+ */
 @RestController
 @CrossOrigin
 public class RecipeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
-    private final RecipeService recipeService;
+  private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
+  private final RecipeService recipeService;
 
-    @Autowired
-    public RecipeController(RecipeService recipeService) {
-        this.recipeService = recipeService;
-    }
+  @Autowired
+  public RecipeController(RecipeService recipeService) {
+    this.recipeService = recipeService;
+  }
 
-    @GetMapping("/recipe")
-    public RecipeAppResponse<List<Recipe>> getAllRecipes() {
-        logger.info("Getting all recipes");
-        try {
-            List<Recipe> recipes = recipeService.getAllRecipes();
-            logger.info("Successfully retrieved all recipes");
-            return new RecipeAppResponse<>(recipes, "Successfully retrieved all recipes", HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error getting all recipes", e);
-            return new RecipeAppResponse<>(null, "Error getting all recipes", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+  /**
+   * This method is used to get all the recipes from the database.
+   *
+   * @return RecipeAppResponse
+   */
+  @GetMapping("/recipe")
+  public RecipeAppResponse<List<Recipe>> getAllRecipes() {
+    logger.info("Getting all recipes");
+    try {
+      List<Recipe> recipes = recipeService.getAllRecipes();
+      logger.info("Successfully retrieved all recipes");
+      return new RecipeAppResponse<>(recipes, "Successfully retrieved all recipes", HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error getting all recipes", e);
+      return new RecipeAppResponse<>(null, "Error getting all recipes",
+          HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 
-    @GetMapping("/recipe/{id}")
-    public RecipeAppResponse<Recipe> getRecipeById(@PathVariable Integer id) {
-        logger.info("Getting recipe with id: " + id);
-        try {
-            Recipe recipe = recipeService.getRecipeById(id);
-            logger.info("Successfully retrieved recipe with id: " + id);
-            return new RecipeAppResponse<>(recipe, "Successfully retrieved recipe with id: " + id, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error getting recipe with id: " + id, e);
-            return new RecipeAppResponse<>(null, "Error getting recipe with id: " + id, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+  /**
+   * This method is used to get a recipe by id from the database.
+   *
+   * @param id
+   *
+   * @return RecipeAppResponse
+   */
+  @GetMapping("/recipe/{id}")
+  public RecipeAppResponse<Recipe> getRecipeById(@PathVariable Integer id) {
+    logger.info("Getting recipe with id: " + id);
+    try {
+      Recipe recipe = recipeService.getRecipeById(id);
+      logger.info("Successfully retrieved recipe with id: " + id);
+      return new RecipeAppResponse<>(recipe, "Successfully retrieved recipe with id: "
+          + id, HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error getting recipe with id: " + id, e);
+      return new RecipeAppResponse<>(null, "Error getting recipe with id: "
+          + id, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 
-    @PostMapping("/recipe")
-    public RecipeAppResponse<Recipe> saveRecipe(@RequestBody Recipe recipe) {
-        logger.info("Saving recipe");
-        logger.info("Recipe: " + recipe);
-        try {
-            Recipe savedRecipe = recipeService.saveRecipe(recipe);
-            logger.info("Successfully saved recipe");
-            return new RecipeAppResponse<>(savedRecipe, "Successfully saved recipe", HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error saving recipe", e);
-            return new RecipeAppResponse<>(null, "Error saving recipe", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+  /**
+   * This method is used to save a recipe to the database.
+   *
+   * @param recipe
+   *
+   * @return RecipeAppResponse
+   */
+  @PostMapping("/recipe")
+  public RecipeAppResponse<Recipe> saveRecipe(@RequestBody Recipe recipe) {
+    logger.info("Saving recipe");
+    logger.info("Recipe: " + recipe);
+    try {
+      Recipe savedRecipe = recipeService.saveRecipe(recipe);
+      logger.info("Successfully saved recipe");
+      return new RecipeAppResponse<>(savedRecipe, "Successfully saved recipe", HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error saving recipe", e);
+      return new RecipeAppResponse<>(null, "Error saving recipe",
+          HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 
-    @PutMapping("/recipe/{id}")
-    public RecipeAppResponse<Recipe> updateRecipe(@RequestBody Recipe recipe) {
-        logger.info("Updating recipe");
-        logger.debug("Recipe: " + recipe);
-        try {
-            Recipe updatedRecipe = recipeService.updateRecipe(recipe);
-            logger.info("Successfully updated recipe");
-            return new RecipeAppResponse<>(updatedRecipe, "Successfully updated recipe", HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error updating recipe", e);
-            return new RecipeAppResponse<>(null, "Error updating recipe", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+  /**
+   * This method is used to update a recipe in the database.
+   *
+   * @param recipe
+   *
+   * @return RecipeAppResponse
+   */
+  @PutMapping("/recipe/{id}")
+  public RecipeAppResponse<Recipe> updateRecipe(@RequestBody Recipe recipe) {
+    logger.info("Updating recipe");
+    logger.debug("Recipe: " + recipe);
+    try {
+      Recipe updatedRecipe = recipeService.updateRecipe(recipe);
+      logger.info("Successfully updated recipe");
+      return new RecipeAppResponse<>(updatedRecipe, "Successfully updated recipe",
+          HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error updating recipe", e);
+      return new RecipeAppResponse<>(null, "Error updating recipe",
+          HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 
-    @DeleteMapping("/recipe/{id}")
-    public RecipeAppResponse<Recipe> deleteRecipeById(@PathVariable String id) {
-        logger.info("Deleting recipe with id: " + id);
-        logger.debug("Recipe id: " + id);
-        try {
-            recipeService.deleteRecipeById(Integer.parseInt(id));
-            logger.info("Successfully deleted recipe with id: " + id);
-            return new RecipeAppResponse<>(null, "Successfully deleted recipe with id: " + id, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error deleting recipe with id: " + id, e);
-            return new RecipeAppResponse<>(null, "Error deleting recipe with id: " + id, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+  /**
+   * This method is used to delete a recipe from the database.
+   *
+   * @param id
+   *
+   * @return RecipeAppResponse
+   */
+  @DeleteMapping("/recipe/{id}")
+  public RecipeAppResponse<Recipe> deleteRecipeById(@PathVariable String id) {
+    logger.info("Deleting recipe with id: " + id);
+    logger.debug("Recipe id: " + id);
+    try {
+      recipeService.deleteRecipeById(Integer.parseInt(id));
+      logger.info("Successfully deleted recipe with id: " + id);
+      return new RecipeAppResponse<>(null, "Successfully deleted recipe with id: "
+          + id, HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error deleting recipe with id: " + id, e);
+      return new RecipeAppResponse<>(null, "Error deleting recipe with id: " + id,
+          HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 
-    @DeleteMapping("/recipe")
-    public RecipeAppResponse<Recipe> deleteAllRecipes() {
-        logger.info("Deleting all recipes");
-        try {
-            recipeService.deleteAllRecipes();
-            logger.info("Successfully deleted all recipes");
-            return new RecipeAppResponse<>(null, "Successfully deleted all recipes", HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error deleting all recipes", e);
-            return new RecipeAppResponse<>(null, "Error deleting all recipes", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+  /**
+   * This method is used to delete all recipes from the database.
+   *
+   * @return RecipeAppResponse
+   */
+  @DeleteMapping("/recipe")
+  public RecipeAppResponse<Recipe> deleteAllRecipes() {
+    logger.info("Deleting all recipes");
+    try {
+      recipeService.deleteAllRecipes();
+      logger.info("Successfully deleted all recipes");
+      return new RecipeAppResponse<>(null, "Successfully deleted all recipes", HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error deleting all recipes", e);
+      return new RecipeAppResponse<>(null, "Error deleting all recipes",
+          HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 }
