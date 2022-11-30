@@ -6,10 +6,17 @@ import java.util.List;
 
 public interface RecipeService {
     Recipe getRecipeById(Integer id) throws Exception;
+
     Recipe saveRecipe(Recipe recipe) throws Exception;
+
     Recipe updateRecipe(Recipe recipe) throws Exception;
+
     void deleteRecipeById(Integer id) throws Exception;
-    void deleteAllRecipes() throws Exception;;
+
+    void deleteAllRecipes() throws Exception;
+
+    ;
+
     List<Recipe> getAllRecipes() throws Exception;
 
 }

@@ -15,9 +15,8 @@ import java.util.List;
 @CrossOrigin
 public class RecipeController {
 
-    private final RecipeService recipeService;
-
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
+    private final RecipeService recipeService;
 
     @Autowired
     public RecipeController(RecipeService recipeService) {

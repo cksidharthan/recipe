@@ -6,15 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 @Entity
-@Table(name="RECIPE")
-@Getter @Setter @ToString @NoArgsConstructor
+@Table(name = "RECIPE")
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 

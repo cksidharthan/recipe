@@ -13,9 +13,8 @@ import java.util.List;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    private final RecipeRepository recipeRepository;
-
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
+    private final RecipeRepository recipeRepository;
 
     public RecipeServiceImpl(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
