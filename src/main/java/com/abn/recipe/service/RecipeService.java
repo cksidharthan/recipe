@@ -1,7 +1,6 @@
 package com.abn.recipe.service;
 
 import com.abn.recipe.entity.Recipe;
-
 import java.util.List;
 
 public interface RecipeService {
@@ -14,8 +13,6 @@ public interface RecipeService {
     void deleteRecipeById(Integer id) throws Exception;
 
     void deleteAllRecipes() throws Exception;
-
-    ;
 
     List<Recipe> getAllRecipes() throws Exception;
 
