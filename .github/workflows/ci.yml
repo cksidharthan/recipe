@@ -55,4 +55,4 @@ jobs:
       # Run lint-check
       - name: Run lint-check
         run: |
-          mvn
+          mvn checkstyle:check
