@@ -1,0 +1,58 @@
+name: Code check
+on: [push]
+jobs:
+  unit-test:
+    name: unit-test
+    runs-on: ubuntu-latest
+    env:
+      GIN_MODE: release
+    steps:
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Setup Java
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+            java-version: 1.11
+
+      # Setup Maven
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v4
+        with:
+          maven-version: 3.6.3
+
+      # Run unit-test
+      - name: Run unit-test
+        run: |
+          mvn test
+
+  lint-check:
+    name: lint-check
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Setup Java
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+            java-version: 1.11
+
+      # Setup Maven
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v4
+        with:
+          maven-version: 3.6.3
+
+      # Run lint-check
+      - name: Run lint-check
+        run: |
+          mvn checkstyle:check
