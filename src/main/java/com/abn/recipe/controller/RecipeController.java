@@ -95,7 +95,7 @@ public class RecipeController {
       Recipe savedRecipe = recipeService.saveRecipe(recipe);
       logger.info("Successfully saved recipe");
       return new ResponseEntity<>(new RecipeAppResponse<>(savedRecipe,
-          "Successfully saved recipe"), HttpStatus.OK);
+          "Successfully saved recipe"), HttpStatus.CREATED);
     } catch (Exception e) {
       logger.error("Error saving recipe", e);
       return new ResponseEntity<>(new RecipeAppResponse<>(null,
