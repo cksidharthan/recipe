@@ -56,3 +56,11 @@ jobs:
       - name: Run lint-check using google code style
         run: |
           mvn checkstyle:check -Dcheckstyle.config.location=google_checks.xml -Dcheckstyle.consoleOutput=true
+
+  code-coverage:
+    name: Generate code coverage report
+    runs-on: ubuntu-latest
+    steps:
+      - name: jacoco-badge-generator
+        uses: cicirello/jacoco-badge-generator@v2.8.1
+
