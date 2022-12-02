@@ -2,6 +2,7 @@
   "data": {
     "id": 1,
     "name": "Chicken Parmesan",
+    "isVegetarian": false,
     "description": "Chicken Parmesan is a classic Italian-American dish that is easy to make at home. It is a simple dish of breaded chicken cutlets topped with tomato sauce and melted mozzarella cheese.",
     "ingredients": "1/2 cup all-purpose flour, 2 eggs, beaten, 1 cup Italian-style bread crumbs, 1/2 teaspoon salt, 1/4 teaspoon ground black pepper, 4 skinless, boneless chicken breast halves - pounded 1/4 inch thick, 1/2 cup grated Parmesan cheese, 1 (24 ounce) jar pasta sauce, 1 cup shredded mozzarella cheese",
     "directions": "Preheat oven to 350 degrees F (175 degrees C). Place flour in a shallow dish. Beat eggs in a separate shallow dish. Mix bread crumbs, salt, and pepper together in a third shallow dish. Dip chicken into flour, then into egg, and finally into bread crumb mixture to coat. Place chicken in a 9x13 inch baking dish. Sprinkle Parmesan cheese over chicken. Pour pasta sauce over chicken. Cover with aluminum foil. Bake in the preheated oven for 30 minutes. Remove foil, and sprinkle mozzarella cheese over chicken. Bake uncovered for 15 minutes, or until chicken is no longer pink and juices run clear.",

@@ -34,6 +34,10 @@ public class Recipe {
   @NotNull
   private String name;
 
+  @Column(name = "IS_VEGETARIAN")
+  @NotNull
+  private Boolean isVegetarian;
+
   @Column(name = "DESCRIPTION")
   @NotNull
   private String description;
