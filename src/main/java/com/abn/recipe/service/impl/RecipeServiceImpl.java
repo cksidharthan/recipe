@@ -5,6 +5,7 @@ import com.abn.recipe.dao.RecipeRepository;
 import com.abn.recipe.entity.Recipe;
 import com.abn.recipe.service.RecipeService;
 import java.util.List;
+import javassist.NotFoundException;
 import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +30,23 @@ public class RecipeServiceImpl implements RecipeService {
    *
    */
   @Transactional
-  public void deleteRecipeById(Integer id) throws Exception {
+  public void deleteRecipeById(Integer id) throws NotFoundException, Exception {
     logger.info("Deleting recipe with id: " + id);
     try {
-      recipeRepository.deleteById(id);
+      if (recipeRepository.existsById(Long.valueOf(id))) {
+        recipeRepository.deleteById(Long.valueOf(id));
+        logger.info("Successfully deleted recipe with id: " + id);
+      } else {
+        logger.error("Recipe with id: " + id + " does not exist");
+        throw new NotFoundException("Recipe with id: " + id + " does not exist");
+      }
     } catch (Exception e) {
       logger.error("Error deleting recipe with id: " + id);
-      throw new Exception("Error deleting recipe with id: " + id);
+      if (e instanceof NotFoundException) {
+        throw e;
+      } else {
+        throw new Exception("Error deleting recipe with id: " + id);
+      }
     }
   }
 
@@ -63,13 +74,22 @@ public class RecipeServiceImpl implements RecipeService {
    *
    */
   @Transactional
-  public Recipe updateRecipe(Recipe recipe) throws Exception {
+  public Recipe updateRecipe(Recipe recipe) throws NotFoundException, Exception {
     logger.debug("Updating recipe with id: " + recipe.getId());
     try {
-      return recipeRepository.save(recipe);
+      if (recipeRepository.existsById(recipe.getId())) {
+        return recipeRepository.save(recipe);
+      } else {
+        logger.error("Recipe with id: " + recipe.getId() + " does not exist");
+        throw new NotFoundException("Recipe with id: " + recipe.getId() + " does not exist");
+      }
     } catch (Exception e) {
       logger.error("Error updating recipe with id: " + recipe.getId());
-      throw new Exception("Error updating recipe with id: " + recipe.getId());
+      if (e instanceof NotFoundException) {
+        throw e;
+      } else {
+        throw new Exception("Error updating recipe with id: " + recipe.getId());
+      }
     }
   }
 
@@ -98,14 +118,21 @@ public class RecipeServiceImpl implements RecipeService {
    *
    * @return Recipe
    */
-  @Transactional
-  public Recipe getRecipeById(Integer id) throws Exception {
+  public Recipe getRecipeById(Integer id) throws NotFoundException, Exception {
     logger.debug("Getting all recipe from database");
     try {
-      return recipeRepository.findById(id).get();
+      if (recipeRepository.existsById(Long.valueOf(id))) {
+        return recipeRepository.findById(Long.valueOf(id)).get();
+      } else {
+        throw new NotFoundException("Recipe with id: " + id + " does not exist");
+      }
     } catch (Exception e) {
       logger.error("Error getting recipe with id: " + id);
-      throw new Exception("Error getting recipe with id: " + id);
+      if (e instanceof NotFoundException) {
+        throw e;
+      } else {
+        throw new Exception("Error getting recipe with id: " + id);
+      }
     }
   }
 
@@ -114,7 +141,6 @@ public class RecipeServiceImpl implements RecipeService {
    *
    * @return list of recipes
    */
-  @Transactional
   public List<Recipe> getAllRecipes() throws Exception {
     logger.debug("Getting all recipes from database");
     try {
