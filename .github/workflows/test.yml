@@ -29,13 +29,3 @@ jobs:
       - name: Run unit-test
         run: |
           mvn test
-
-  lint-check:
-    name: lint-check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3 # v2 minimum required
-      - uses: axel-op/googlejavaformat-action@v3
-        with:
-          args: "--replace"
-          skip-commit: true
