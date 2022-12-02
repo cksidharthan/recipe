@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Recipe {
 
   @Id
@@ -52,23 +54,4 @@ public class Recipe {
   @NotNull
   private int prepTime;
 
-  /**
-   * Constructor to initialize the Recipe object.
-   *
-   * @param name        name of the recipe
-   * @param description description of the recipe
-   * @param ingredients ingredients of the recipe
-   * @param directions  directions of the recipe
-   * @param servings    servings of the recipe
-   * @param prepTime    prep time of the recipe
-   */
-  public Recipe(String name, String description, String ingredients,
-      String directions, int servings, int prepTime) {
-    this.name = name;
-    this.description = description;
-    this.ingredients = ingredients;
-    this.directions = directions;
-    this.servings = servings;
-    this.prepTime = prepTime;
-  }
 }

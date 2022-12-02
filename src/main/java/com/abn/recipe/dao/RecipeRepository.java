@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
   * This interface is used to handle all the database operations related to Recipe.
  */
-public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 }

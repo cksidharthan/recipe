@@ -4,10 +4,12 @@ import com.abn.recipe.entity.Recipe;
 import com.abn.recipe.helper.RecipeAppResponse;
 import com.abn.recipe.service.RecipeService;
 import java.util.List;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,16 +40,17 @@ public class RecipeController {
    * @return RecipeAppResponse
    */
   @GetMapping("/recipe")
-  public RecipeAppResponse<List<Recipe>> getAllRecipes() {
+  public ResponseEntity<RecipeAppResponse<List<Recipe>>> getAllRecipes() {
     logger.info("Getting all recipes");
     try {
       List<Recipe> recipes = recipeService.getAllRecipes();
       logger.info("Successfully retrieved all recipes");
-      return new RecipeAppResponse<>(recipes, "Successfully retrieved all recipes", HttpStatus.OK);
+      return new ResponseEntity<>(new RecipeAppResponse<>(recipes,
+          "Successfully retrieved all recipes"), HttpStatus.OK);
     } catch (Exception e) {
       logger.error("Error getting all recipes", e);
-      return new RecipeAppResponse<>(null, "Error getting all recipes",
-          HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Error getting all recipes"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -59,17 +62,21 @@ public class RecipeController {
    * @return RecipeAppResponse
    */
   @GetMapping("/recipe/{id}")
-  public RecipeAppResponse<Recipe> getRecipeById(@PathVariable Integer id) {
+  public ResponseEntity<RecipeAppResponse<Recipe>> getRecipeById(@PathVariable Integer id) {
     logger.info("Getting recipe with id: " + id);
     try {
       Recipe recipe = recipeService.getRecipeById(id);
       logger.info("Successfully retrieved recipe with id: " + id);
-      return new RecipeAppResponse<>(recipe, "Successfully retrieved recipe with id: "
-          + id, HttpStatus.OK);
+      return new ResponseEntity<>(new RecipeAppResponse<>(recipe,
+          "Successfully retrieved recipe with id: " + id), HttpStatus.OK);
+    } catch (NotFoundException e) {
+      logger.error("Recipe with id: " + id + " not found", e);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Recipe with id: " + id + " not found"), HttpStatus.NOT_FOUND);
     } catch (Exception e) {
       logger.error("Error getting recipe with id: " + id, e);
-      return new RecipeAppResponse<>(null, "Error getting recipe with id: "
-          + id, HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Error getting recipe with id: " + id), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -81,17 +88,18 @@ public class RecipeController {
    * @return RecipeAppResponse
    */
   @PostMapping("/recipe")
-  public RecipeAppResponse<Recipe> saveRecipe(@RequestBody Recipe recipe) {
+  public ResponseEntity<RecipeAppResponse<Recipe>> saveRecipe(@RequestBody Recipe recipe) {
     logger.info("Saving recipe");
     logger.info("Recipe: " + recipe);
     try {
       Recipe savedRecipe = recipeService.saveRecipe(recipe);
       logger.info("Successfully saved recipe");
-      return new RecipeAppResponse<>(savedRecipe, "Successfully saved recipe", HttpStatus.OK);
+      return new ResponseEntity<>(new RecipeAppResponse<>(savedRecipe,
+          "Successfully saved recipe"), HttpStatus.CREATED);
     } catch (Exception e) {
       logger.error("Error saving recipe", e);
-      return new RecipeAppResponse<>(null, "Error saving recipe",
-          HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Error saving recipe"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -103,18 +111,22 @@ public class RecipeController {
    * @return RecipeAppResponse
    */
   @PutMapping("/recipe/{id}")
-  public RecipeAppResponse<Recipe> updateRecipe(@RequestBody Recipe recipe) {
+  public ResponseEntity<RecipeAppResponse<Recipe>> updateRecipe(@RequestBody Recipe recipe) {
     logger.info("Updating recipe");
     logger.debug("Recipe: " + recipe);
     try {
       Recipe updatedRecipe = recipeService.updateRecipe(recipe);
       logger.info("Successfully updated recipe");
-      return new RecipeAppResponse<>(updatedRecipe, "Successfully updated recipe",
-          HttpStatus.OK);
+      return new ResponseEntity<>(new RecipeAppResponse<>(updatedRecipe,
+          "Successfully updated recipe"), HttpStatus.OK);
+    } catch (NotFoundException e) {
+      logger.error("Recipe with id: " + recipe.getId() + " not found", e);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Recipe with id: " + recipe.getId() + " not found"), HttpStatus.NOT_FOUND);
     } catch (Exception e) {
       logger.error("Error updating recipe", e);
-      return new RecipeAppResponse<>(null, "Error updating recipe",
-          HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Error updating recipe"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -126,18 +138,22 @@ public class RecipeController {
    * @return RecipeAppResponse
    */
   @DeleteMapping("/recipe/{id}")
-  public RecipeAppResponse<Recipe> deleteRecipeById(@PathVariable String id) {
+  public ResponseEntity<RecipeAppResponse<Recipe>> deleteRecipeById(@PathVariable String id) {
     logger.info("Deleting recipe with id: " + id);
     logger.debug("Recipe id: " + id);
     try {
       recipeService.deleteRecipeById(Integer.parseInt(id));
       logger.info("Successfully deleted recipe with id: " + id);
-      return new RecipeAppResponse<>(null, "Successfully deleted recipe with id: "
-          + id, HttpStatus.OK);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Successfully deleted recipe with id: " + id), HttpStatus.OK);
+    } catch (NotFoundException e) {
+      logger.error("Recipe with id: " + id + " not found", e);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Recipe with id: " + id + " not found"), HttpStatus.NOT_FOUND);
     } catch (Exception e) {
       logger.error("Error deleting recipe with id: " + id, e);
-      return new RecipeAppResponse<>(null, "Error deleting recipe with id: " + id,
-          HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Error deleting recipe with id: " + id), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -147,16 +163,17 @@ public class RecipeController {
    * @return RecipeAppResponse
    */
   @DeleteMapping("/recipe")
-  public RecipeAppResponse<Recipe> deleteAllRecipes() {
+  public ResponseEntity<RecipeAppResponse<Recipe>> deleteAllRecipes() {
     logger.info("Deleting all recipes");
     try {
       recipeService.deleteAllRecipes();
       logger.info("Successfully deleted all recipes");
-      return new RecipeAppResponse<>(null, "Successfully deleted all recipes", HttpStatus.OK);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Successfully deleted all recipes"), HttpStatus.OK);
     } catch (Exception e) {
       logger.error("Error deleting all recipes", e);
-      return new RecipeAppResponse<>(null, "Error deleting all recipes",
-          HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(new RecipeAppResponse<>(null,
+          "Error deleting all recipes"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
