@@ -2,12 +2,12 @@ package com.abn.recipe.service.impl;
 
 import com.abn.recipe.controller.RecipeController;
 import com.abn.recipe.dao.RecipeRepository;
+import com.abn.recipe.dao.RecipeRepositoryCustom;
 import com.abn.recipe.entity.Recipe;
 import com.abn.recipe.service.RecipeService;
 import java.util.List;
 import javassist.NotFoundException;
 import javax.transaction.Transactional;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,11 @@ public class RecipeServiceImpl implements RecipeService {
   private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
   private final RecipeRepository recipeRepository;
 
-  public RecipeServiceImpl(RecipeRepository recipeRepository) {
+  private final RecipeRepositoryCustom recipeRepositoryCustom;
+
+  public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeRepositoryCustom recipeRepositoryCustom) {
     this.recipeRepository = recipeRepository;
+    this.recipeRepositoryCustom = recipeRepositoryCustom;
   }
 
   /**
@@ -142,10 +145,22 @@ public class RecipeServiceImpl implements RecipeService {
    *
    * @return list of recipes
    */
-  public List<Recipe> getAllRecipes() throws Exception {
+  public List<Recipe> getAllRecipes(
+      boolean isVegetarian,
+      String excludeIngredients,
+      String includeIngredients,
+      Integer servings,
+      String instructions
+    ) throws Exception {
     logger.debug("Getting all recipes from database");
     try {
-      return recipeRepository.findAll();
+      return recipeRepositoryCustom.findRecipesByFilters(
+        isVegetarian,
+        excludeIngredients,
+        includeIngredients,
+        servings,
+        instructions
+      );
     } catch (Exception e) {
       logger.error("Error getting all recipes from database");
       throw new Exception("Error getting all recipes from database");

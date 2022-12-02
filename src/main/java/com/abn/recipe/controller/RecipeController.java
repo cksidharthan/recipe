@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,10 +41,22 @@ public class RecipeController {
    * @return RecipeAppResponse
    */
   @GetMapping("/recipe")
-  public ResponseEntity<RecipeAppResponse<List<Recipe>>> getAllRecipes() {
+  public ResponseEntity<RecipeAppResponse<List<Recipe>>> getAllRecipes(
+      @RequestParam(required = false) boolean isVegetarian,
+      @RequestParam(required = false) String excludeIngredients,
+      @RequestParam(required = false) String includeIngredients,
+      @RequestParam(required = false) Integer servings,
+      @RequestParam(required = false) String instructions
+  ) {
     logger.info("Getting all recipes");
     try {
-      List<Recipe> recipes = recipeService.getAllRecipes();
+      List<Recipe> recipes = recipeService.getAllRecipes(
+            isVegetarian,
+            excludeIngredients,
+            includeIngredients,
+            servings,
+            instructions
+        );
       logger.info("Successfully retrieved all recipes");
       return new ResponseEntity<>(new RecipeAppResponse<>(recipes,
           "Successfully retrieved all recipes"), HttpStatus.OK);

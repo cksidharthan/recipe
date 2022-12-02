@@ -17,6 +17,12 @@ public interface RecipeService {
 
   void deleteAllRecipes() throws Exception;
 
-  List<Recipe> getAllRecipes() throws Exception;
+  List<Recipe> getAllRecipes(
+        boolean isVegetarian,
+        String excludeIngredients,
+        String includeIngredients,
+        Integer servings,
+        String instructions
+    ) throws Exception;
 
 }
