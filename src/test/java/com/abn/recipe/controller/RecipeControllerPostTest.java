@@ -28,58 +28,58 @@ public class RecipeControllerPostTest {
   private MockMvc mockMvc;
 
   @Test
-    void createRecipe() throws Exception {
-        this.mockMvc.perform(post("/recipe")
-                .contentType("application/json")
-                .content("{\n" +
-                    "  \"description\": \"Sample Description\",\n" +
-                    "  \"directions\": \"Sample Directions\",\n" +
-                    "  \"ingredients\": \"Sample Ingredients\",\n" +
-                    "  \"name\": \"Sample Name\",\n" +
-                    "  \"prepTime\": 2,\n" +
-                    "  \"servings\": 34\n" +
-                    "}"))
-                .andExpect(status().isCreated());
+  void createRecipe() throws Exception {
+    this.mockMvc.perform(post("/recipe")
+            .contentType("application/json")
+            .content("{\n" +
+                "  \"description\": \"Sample Description\",\n" +
+                "  \"directions\": \"Sample Directions\",\n" +
+                "  \"ingredients\": \"Sample Ingredients\",\n" +
+                "  \"name\": \"Sample Name\",\n" +
+                "  \"prepTime\": 2,\n" +
+                "  \"servings\": 34\n" +
+                "}"))
+            .andExpect(status().isCreated());
 
-        this.mockMvc.perform(get("/recipe")
-                .contentType("application/json"))
-                .andExpect(jsonPath("data").isArray())
-                .andExpect(jsonPath("data").isNotEmpty())
-                .andExpect(jsonPath("data.length()").value(5));
-    }
+    this.mockMvc.perform(get("/recipe")
+            .contentType("application/json"))
+            .andExpect(jsonPath("data").isArray())
+            .andExpect(jsonPath("data").isNotEmpty())
+            .andExpect(jsonPath("data.length()").value(5));
+  }
 
-    @Test
-    void createRecipeWithNoBody() throws Exception {
-        this.mockMvc.perform(post("/recipe")
-                .contentType("application/json"))
-                .andExpect(status().isBadRequest());
-    }
+  @Test
+  void createRecipeWithNoBody() throws Exception {
+    this.mockMvc.perform(post("/recipe")
+            .contentType("application/json"))
+            .andExpect(status().isBadRequest());
+  }
 
-    @Test
-    void createRecipeWithNoName() throws Exception {
-        this.mockMvc.perform(post("/recipe")
-                .contentType("application/json")
-                .content("{\n" +
-                    "  \"description\": \"Sample Description\",\n" +
-                    "  \"directions\": \"Sample Directions\",\n" +
-                    "  \"ingredients\": \"Sample Ingredients\",\n" +
-                    "  \"prepTime\": 2,\n" +
-                    "  \"servings\": 34\n" +
-                    "}"))
-                .andExpect(status().isInternalServerError());
-    }
+  @Test
+  void createRecipeWithNoName() throws Exception {
+    this.mockMvc.perform(post("/recipe")
+            .contentType("application/json")
+            .content("{\n" +
+                "  \"description\": \"Sample Description\",\n" +
+                "  \"directions\": \"Sample Directions\",\n" +
+                "  \"ingredients\": \"Sample Ingredients\",\n" +
+                "  \"prepTime\": 2,\n" +
+                "  \"servings\": 34\n" +
+                "}"))
+            .andExpect(status().isInternalServerError());
+  }
 
-    @Test
-    void createRecipeWithNoDescription() throws Exception {
-        this.mockMvc.perform(post("/recipe")
-                .contentType("application/json")
-                .content("{\n" +
-                    "  \"directions\": \"Sample Directions\",\n" +
-                    "  \"ingredients\": \"Sample Ingredients\",\n" +
-                    "  \"name\": \"Sample Name\",\n" +
-                    "  \"prepTime\": 2,\n" +
-                    "  \"servings\": 34\n" +
-                    "}"))
-                .andExpect(status().isInternalServerError());
-    }
+  @Test
+  void createRecipeWithNoDescription() throws Exception {
+    this.mockMvc.perform(post("/recipe")
+            .contentType("application/json")
+            .content("{\n" +
+                "  \"directions\": \"Sample Directions\",\n" +
+                "  \"ingredients\": \"Sample Ingredients\",\n" +
+                "  \"name\": \"Sample Name\",\n" +
+                "  \"prepTime\": 2,\n" +
+                "  \"servings\": 34\n" +
+                "}"))
+            .andExpect(status().isInternalServerError());
+  }
 }
