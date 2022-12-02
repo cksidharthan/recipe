@@ -34,6 +34,7 @@ public class RecipeControllerGetTest {
             .contentType("application/json"))
             .andExpect(jsonPath("data").isArray())
             .andExpect(jsonPath("data").isNotEmpty())
+
             .andExpect(jsonPath("data").value(expectedResponse.getJSONArray("data").toList()))
             .andExpect(jsonPath("data.length()").value(4))
             .andExpect(status().isOk());
