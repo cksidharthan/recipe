@@ -22,7 +22,8 @@ public class RecipeServiceImpl implements RecipeService {
 
   private final RecipeRepositoryCustom recipeRepositoryCustom;
 
-  public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeRepositoryCustom recipeRepositoryCustom) {
+  public RecipeServiceImpl(RecipeRepository recipeRepository,
+      RecipeRepositoryCustom recipeRepositoryCustom) {
     this.recipeRepository = recipeRepository;
     this.recipeRepositoryCustom = recipeRepositoryCustom;
   }
@@ -34,7 +35,7 @@ public class RecipeServiceImpl implements RecipeService {
    *
    */
   @Transactional
-  public void deleteRecipeById(Integer id) throws NotFoundException, Exception {
+  public void deleteRecipeById(Integer id) throws Exception {
     logger.info("Deleting recipe with id: " + id);
     try {
       if (recipeRepository.existsById(Long.valueOf(id))) {
@@ -78,7 +79,7 @@ public class RecipeServiceImpl implements RecipeService {
    *
    */
   @Transactional
-  public Recipe updateRecipe(Recipe recipe) throws NotFoundException, Exception {
+  public Recipe updateRecipe(Recipe recipe) throws Exception {
     logger.debug("Updating recipe with id: " + recipe.getId());
     try {
       if (recipeRepository.existsById(recipe.getId())) {
@@ -122,7 +123,7 @@ public class RecipeServiceImpl implements RecipeService {
    *
    * @return Recipe
    */
-  public Recipe getRecipeById(Integer id) throws NotFoundException, Exception {
+  public Recipe getRecipeById(Integer id) throws Exception {
     logger.debug("Getting all recipe from database");
     try {
       if (recipeRepository.existsById(Long.valueOf(id))) {
@@ -151,7 +152,7 @@ public class RecipeServiceImpl implements RecipeService {
       String includeIngredients,
       Integer servings,
       String instructions
-    ) throws Exception {
+  ) throws Exception {
     logger.debug("Getting all recipes from database");
     try {
       return recipeRepositoryCustom.findRecipesByFilters(

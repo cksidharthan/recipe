@@ -1,7 +1,6 @@
 package com.abn.recipe.dao;
 
 import com.abn.recipe.entity.Recipe;
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

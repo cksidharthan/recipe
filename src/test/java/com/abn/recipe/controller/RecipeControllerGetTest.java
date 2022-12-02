@@ -71,5 +71,25 @@ public class RecipeControllerGetTest {
             .contentType("application/json"))
             .andExpect(status().isNotFound());
     }
+
+    @Test
+    void getAllRecipesByFilters1() throws Exception {
+      this.mockMvc.perform(get("/recipe?isVegetarian=true")
+            .contentType("application/json"))
+            .andExpect(jsonPath("data").isArray())
+            .andExpect(jsonPath("data").isNotEmpty())
+            .andExpect(jsonPath("data.length()").value(2))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    void getAllRecipesByFilters2() throws Exception {
+      this.mockMvc.perform(get("/recipe?isVegetarian=true&excludeIngredients=eggs")
+            .contentType("application/json"))
+            .andExpect(jsonPath("data").isArray())
+            .andExpect(jsonPath("data").isEmpty())
+            .andExpect(jsonPath("data.length()").value(0))
+            .andExpect(status().isOk());
+    }
 }
 
