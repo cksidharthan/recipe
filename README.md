@@ -1,6 +1,5 @@
-![coverage](.github/badges/jacoco.svg)
-![branches coverage](.github/badges/branches.svg)
-[![Code check](https://github.com/cksidharthan/recipe/actions/workflows/ci.yml/badge.svg)](https://github.com/cksidharthan/recipe/actions/workflows/ci.yml&style=for-the-badge)
+[![Code check](https://github.com/cksidharthan/recipe/actions/workflows/ci.yml/badge.svg)](https://github.com/cksidharthan/recipe/actions/workflows/ci.yml)
+[![Code check](https://github.com/cksidharthan/recipe/actions/workflows/ci.yml/badge.svg)](https://github.com/cksidharthan/recipe/actions/workflows/ci.yml)
 
 
 # Recipe Rest API
