@@ -40,26 +40,11 @@ jobs:
     name: lint-check
     runs-on: ubuntu-latest
     steps:
-      # Checkout
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3 # v2 minimum required
+      - uses: axel-op/googlejavaformat-action@v3
         with:
-          fetch-depth: 0
-
-      # Setup Java
-      - name: Setup Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.11
-
-      # Setup Maven
-      - name: Setup Maven
-        uses: stCarolas/setup-maven@v4
-        with:
-          maven-version: 3.6.3
-
-      # Run lint-check
-      - name: Run lint-check using google code style
-        run: |
-          mvn checkstyle:check -Dcheckstyle.config.location=google_checks.xml -Dcheckstyle.consoleOutput=true
+          args: "--replace"
+          skip-commit: true
+      - name: Print diffs
+        run: git --no-pager diff --exit-code
 
