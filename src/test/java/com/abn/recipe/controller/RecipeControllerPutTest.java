@@ -26,44 +26,44 @@ public class RecipeControllerPutTest {
   private MockMvc mockMvc;
 
   @Test
-    void updateRecipe() throws Exception {
-        this.mockMvc.perform(put("/recipe/1")
-            .contentType("application/json")
-            .content("{\n" +
-                "  \"id\": \"1\",\n" +
-                "  \"description\": \"Sample Description\",\n" +
-                "  \"directions\": \"Sample Directions\",\n" +
-                "  \"ingredients\": \"Sample Ingredients\",\n" +
-                "  \"name\": \"Sample Name\",\n" +
-                "  \"prepTime\": 2,\n" +
-                "  \"servings\": 34\n" +
-                "}"))
-            .andExpect(status().isOk());
+  void updateRecipe() throws Exception {
+    this.mockMvc.perform(put("/recipe/1")
+        .contentType("application/json")
+        .content("{\n" +
+            "  \"id\": \"1\",\n" +
+            "  \"description\": \"Sample Description\",\n" +
+            "  \"directions\": \"Sample Directions\",\n" +
+            "  \"ingredients\": \"Sample Ingredients\",\n" +
+            "  \"name\": \"Sample Name\",\n" +
+            "  \"prepTime\": 2,\n" +
+            "  \"servings\": 34\n" +
+            "}"))
+        .andExpect(status().isOk());
 
-        this.mockMvc.perform(get("/recipe/1")
-            .contentType("application/json"))
-            .andExpect(jsonPath("data").isNotEmpty())
-            .andExpect(jsonPath("data.name").value("Sample Name"))
-            .andExpect(jsonPath("data.description").value("Sample Description"))
-            .andExpect(jsonPath("data.directions").value("Sample Directions"))
-            .andExpect(jsonPath("data.ingredients").value("Sample Ingredients"))
-            .andExpect(jsonPath("data.prepTime").value(2))
-            .andExpect(jsonPath("data.servings").value(34));
-    }
+    this.mockMvc.perform(get("/recipe/1")
+        .contentType("application/json"))
+        .andExpect(jsonPath("data").isNotEmpty())
+        .andExpect(jsonPath("data.name").value("Sample Name"))
+        .andExpect(jsonPath("data.description").value("Sample Description"))
+        .andExpect(jsonPath("data.directions").value("Sample Directions"))
+        .andExpect(jsonPath("data.ingredients").value("Sample Ingredients"))
+        .andExpect(jsonPath("data.prepTime").value(2))
+        .andExpect(jsonPath("data.servings").value(34));
+  }
 
-    @Test
-    void updateRecipe_InvalidId() throws Exception {
-        this.mockMvc.perform(put("/recipe/100")
-            .contentType("application/json")
-            .content("{\n" +
-                "  \"id\": \"100\",\n" +
-                "  \"description\": \"Sample Description\",\n" +
-                "  \"directions\": \"Sample Directions\",\n" +
-                "  \"ingredients\": \"Sample Ingredients\",\n" +
-                "  \"name\": \"Sample Name\",\n" +
-                "  \"prepTime\": 2,\n" +
-                "  \"servings\": 34\n" +
-                "}"))
-            .andExpect(status().isNotFound());
-    }
+  @Test
+  void updateRecipe_InvalidId() throws Exception {
+    this.mockMvc.perform(put("/recipe/100")
+        .contentType("application/json")
+        .content("{\n" +
+            "  \"id\": \"100\",\n" +
+            "  \"description\": \"Sample Description\",\n" +
+            "  \"directions\": \"Sample Directions\",\n" +
+            "  \"ingredients\": \"Sample Ingredients\",\n" +
+            "  \"name\": \"Sample Name\",\n" +
+            "  \"prepTime\": 2,\n" +
+            "  \"servings\": 34\n" +
+            "}"))
+        .andExpect(status().isNotFound());
+  }
 }

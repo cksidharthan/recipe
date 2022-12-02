@@ -28,7 +28,7 @@ Rest API for Recipe App using Java Spring Boot and H2 Database
 
 ## Swagger UI
 - Application is integrated with swagger
-- Swagger UI can be viewed on `http://localhost:8080/swagger-ui.html`
+- Swagger UI can be viewed on `http://localhost:8082/swagger-ui.html`
 
 ## Makefile
 - Makefile is added to run the commands

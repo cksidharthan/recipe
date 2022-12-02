@@ -31,45 +31,65 @@ public class RecipeControllerGetTest {
   void getAllRecipes() throws Exception {
     JSONObject expectedResponse = Utils.readJSONFile("src/test/resources/json/initial-recipes.json");
     this.mockMvc.perform(get("/recipe")
-            .contentType("application/json"))
-            .andExpect(jsonPath("data").isArray())
-            .andExpect(jsonPath("data").isNotEmpty())
+          .contentType("application/json"))
+          .andExpect(jsonPath("data").isArray())
+          .andExpect(jsonPath("data").isNotEmpty())
 
-            .andExpect(jsonPath("data").value(expectedResponse.getJSONArray("data").toList()))
-            .andExpect(jsonPath("data.length()").value(4))
-            .andExpect(status().isOk());
+          .andExpect(jsonPath("data").value(expectedResponse.getJSONArray("data").toList()))
+          .andExpect(jsonPath("data.length()").value(4))
+          .andExpect(status().isOk());
   }
 
-    @Test
-    void getRecipeById() throws Exception {
-      JSONObject expectedResponse = Utils.readJSONFile("src/test/resources/json/recipe-id-1.json");
-      this.mockMvc.perform(get("/recipe/1")
-            .contentType("application/json"))
-            .andExpect(jsonPath("data").isMap())
-            .andExpect(jsonPath("data").isNotEmpty())
-            .andExpect(jsonPath("data").value(expectedResponse.getJSONObject("data").toMap()))
-            .andExpect(status().isOk());
-    }
+  @Test
+  void getRecipeById() throws Exception {
+    JSONObject expectedResponse = Utils.readJSONFile("src/test/resources/json/recipe-id-1.json");
+    this.mockMvc.perform(get("/recipe/1")
+          .contentType("application/json"))
+          .andExpect(jsonPath("data").isMap())
+          .andExpect(jsonPath("data").isNotEmpty())
+          .andExpect(jsonPath("data").value(expectedResponse.getJSONObject("data").toMap()))
+          .andExpect(status().isOk());
+  }
 
-    @Test
-    void getRecipeByIdNotFound() throws Exception {
-      this.mockMvc.perform(get("/recipe/100")
-            .contentType("application/json"))
-            .andExpect(status().isNotFound());
-    }
+  @Test
+  void getRecipeByIdNotFound() throws Exception {
+    this.mockMvc.perform(get("/recipe/100")
+          .contentType("application/json"))
+          .andExpect(status().isNotFound());
+  }
 
-    @Test
-    void getRecipeByInvalidId() throws Exception {
-      this.mockMvc.perform(get("/recipe/invalid")
-            .contentType("application/json"))
-            .andExpect(status().isBadRequest());
-    }
+  @Test
+  void getRecipeByInvalidId() throws Exception {
+    this.mockMvc.perform(get("/recipe/invalid")
+          .contentType("application/json"))
+          .andExpect(status().isBadRequest());
+  }
 
-    @Test
-    void getRecipeByInvalidPath() throws Exception {
-      this.mockMvc.perform(get("/recipe/invalid/invalid")
-            .contentType("application/json"))
-            .andExpect(status().isNotFound());
-    }
+  @Test
+  void getRecipeByInvalidPath() throws Exception {
+    this.mockMvc.perform(get("/recipe/invalid/invalid")
+          .contentType("application/json"))
+          .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void getAllRecipesByFilters1() throws Exception {
+    this.mockMvc.perform(get("/recipe?isVegetarian=true")
+          .contentType("application/json"))
+          .andExpect(jsonPath("data").isArray())
+          .andExpect(jsonPath("data").isNotEmpty())
+          .andExpect(jsonPath("data.length()").value(2))
+          .andExpect(status().isOk());
+  }
+
+  @Test
+  void getAllRecipesByFilters2() throws Exception {
+    this.mockMvc.perform(get("/recipe?isVegetarian=true&excludeIngredients=eggs")
+          .contentType("application/json"))
+          .andExpect(jsonPath("data").isArray())
+          .andExpect(jsonPath("data").isEmpty())
+          .andExpect(jsonPath("data.length()").value(0))
+          .andExpect(status().isOk());
+  }
 }
 
