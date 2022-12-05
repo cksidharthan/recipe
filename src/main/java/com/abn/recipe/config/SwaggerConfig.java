@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
   /**
-   * This method is used to configure Swagger for the application.
+   * This method is used to configure Docket - Swagger for the application.
    *
    * @return Docket
    */
@@ -32,6 +32,10 @@ public class SwaggerConfig {
         .apiInfo(metaData());
   }
 
+  /**
+   * This method is used to configure the meta data for the application.
+   * @return
+   */
   private ApiInfo metaData() {
     ApiInfo apiInfo = new ApiInfo(
         "Recipe API",

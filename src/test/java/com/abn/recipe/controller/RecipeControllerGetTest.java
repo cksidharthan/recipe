@@ -27,6 +27,10 @@ public class RecipeControllerGetTest {
   @Autowired
   private MockMvc mockMvc;
 
+  /**
+   * Test to check if the get all recipes endpoint is working.
+   * @throws Exception
+   */
   @Test
   void getAllRecipes() throws Exception {
     JSONObject expectedResponse = Utils.readJSONFile("src/test/resources/json/initial-recipes.json");
@@ -40,6 +44,10 @@ public class RecipeControllerGetTest {
           .andExpect(status().isOk());
   }
 
+  /**
+   * Test to check if the get recipe by id endpoint is working.
+   * @throws Exception
+   */
   @Test
   void getRecipeById() throws Exception {
     JSONObject expectedResponse = Utils.readJSONFile("src/test/resources/json/recipe-id-1.json");
@@ -51,6 +59,10 @@ public class RecipeControllerGetTest {
           .andExpect(status().isOk());
   }
 
+  /**
+   * Test to check if the get recipe by invalid id endpoint is working as expected.
+   * @throws Exception
+   */
   @Test
   void getRecipeByIdNotFound() throws Exception {
     this.mockMvc.perform(get("/recipe/100")
@@ -58,6 +70,10 @@ public class RecipeControllerGetTest {
           .andExpect(status().isNotFound());
   }
 
+  /**
+   * Test to check if the get recipe by invalid id (alphanum) endpoint is working.
+   * @throws Exception
+   */
   @Test
   void getRecipeByInvalidId() throws Exception {
     this.mockMvc.perform(get("/recipe/invalid")
@@ -65,6 +81,10 @@ public class RecipeControllerGetTest {
           .andExpect(status().isBadRequest());
   }
 
+  /**
+   * Test to check if the get recipe by invalid path is working as expected.
+   * @throws Exception
+   */
   @Test
   void getRecipeByInvalidPath() throws Exception {
     this.mockMvc.perform(get("/recipe/invalid/invalid")
@@ -72,6 +92,10 @@ public class RecipeControllerGetTest {
           .andExpect(status().isNotFound());
   }
 
+  /**
+   * Test to check if the get recipe by filters is working as expected.
+   * @throws Exception
+   */
   @Test
   void getAllRecipesByFilters1() throws Exception {
     this.mockMvc.perform(get("/recipe?isVegetarian=true")
@@ -82,6 +106,10 @@ public class RecipeControllerGetTest {
           .andExpect(status().isOk());
   }
 
+  /**
+   * Test to check if the get recipe by filters is working as expected.
+   * @throws Exception
+   */
   @Test
   void getAllRecipesByFilters2() throws Exception {
     this.mockMvc.perform(get("/recipe?isVegetarian=true&excludeIngredients=eggs")

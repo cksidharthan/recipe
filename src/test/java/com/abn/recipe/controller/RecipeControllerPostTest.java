@@ -27,6 +27,10 @@ public class RecipeControllerPostTest {
   @Autowired
   private MockMvc mockMvc;
 
+  /**
+   * Test to check if the post recipe endpoint is working.
+   * @throws Exception
+   */
   @Test
   void createRecipe() throws Exception {
     this.mockMvc.perform(post("/recipe")
@@ -48,6 +52,10 @@ public class RecipeControllerPostTest {
             .andExpect(jsonPath("data.length()").value(5));
   }
 
+  /**
+   * Test to check if the post recipe endpoint is working as expected when the request body is empty.
+   * @throws Exception
+   */
   @Test
   void createRecipeWithNoBody() throws Exception {
     this.mockMvc.perform(post("/recipe")
@@ -55,6 +63,10 @@ public class RecipeControllerPostTest {
             .andExpect(status().isBadRequest());
   }
 
+  /**
+   * Test to check if the post recipe endpoint is working as expected when the request body is invalid.
+   * @throws Exception
+   */
   @Test
   void createRecipeWithNoName() throws Exception {
     this.mockMvc.perform(post("/recipe")
@@ -69,6 +81,10 @@ public class RecipeControllerPostTest {
             .andExpect(status().isInternalServerError());
   }
 
+  /**
+   * Test to check if the post recipe endpoint is working as expected when the request body is invalid.
+   * @throws Exception
+   */
   @Test
   void createRecipeWithNoDescription() throws Exception {
     this.mockMvc.perform(post("/recipe")

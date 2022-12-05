@@ -25,6 +25,10 @@ public class RecipeControllerPutTest {
   @Autowired
   private MockMvc mockMvc;
 
+  /**
+   * Test to check if the update recipe with valid id endpoint is working.
+   * @throws Exception
+   */
   @Test
   void updateRecipe() throws Exception {
     this.mockMvc.perform(put("/recipe/1")
@@ -51,6 +55,10 @@ public class RecipeControllerPutTest {
         .andExpect(jsonPath("data.servings").value(34));
   }
 
+  /**
+   * Test to check if the update recipe with invalid id endpoint is working.
+   * @throws Exception
+   */
   @Test
   void updateRecipe_InvalidId() throws Exception {
     this.mockMvc.perform(put("/recipe/100")
