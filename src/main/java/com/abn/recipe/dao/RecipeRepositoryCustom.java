@@ -10,7 +10,7 @@ public interface RecipeRepositoryCustom {
   List<Recipe> findRecipesByFilters(
       boolean isVegetarian,
       String excludeIngredients,
-      String includeIngredients,
+      String includeInstructions,
       Integer servings,
       String instructions
   ) throws Exception;

@@ -149,7 +149,7 @@ public class RecipeServiceImpl implements RecipeService {
   public List<Recipe> getAllRecipes(
       boolean isVegetarian,
       String excludeIngredients,
-      String includeIngredients,
+      String includeInstructions,
       Integer servings,
       String instructions
   ) throws Exception {
@@ -158,7 +158,7 @@ public class RecipeServiceImpl implements RecipeService {
       return recipeRepositoryCustom.findRecipesByFilters(
         isVegetarian,
         excludeIngredients,
-        includeIngredients,
+          includeInstructions,
         servings,
         instructions
       );

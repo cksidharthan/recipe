@@ -20,7 +20,7 @@ public interface RecipeService {
   List<Recipe> getAllRecipes(
         boolean isVegetarian,
         String excludeIngredients,
-        String includeIngredients,
+        String includeInstructions,
         Integer servings,
         String instructions
     ) throws Exception;

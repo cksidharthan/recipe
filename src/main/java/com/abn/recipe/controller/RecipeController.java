@@ -44,7 +44,7 @@ public class RecipeController {
   public ResponseEntity<RecipeAppResponse<List<Recipe>>> getAllRecipes(
       @RequestParam(required = false) boolean isVegetarian,
       @RequestParam(required = false) String excludeIngredients,
-      @RequestParam(required = false) String includeIngredients,
+      @RequestParam(required = false) String includeInstructions,
       @RequestParam(required = false) Integer servings,
       @RequestParam(required = false) String instructions
   ) {
@@ -53,7 +53,7 @@ public class RecipeController {
       List<Recipe> recipes = recipeService.getAllRecipes(
             isVegetarian,
             excludeIngredients,
-            includeIngredients,
+            includeInstructions,
             servings,
             instructions
         );
