@@ -25,6 +25,9 @@ class RecipeAppApplicationTests {
   @Autowired
   private MockMvc mockMvc;
 
+  /**
+   * Test to check if the RecipeController, repository and mock mvc is loaded.
+   */
   @Test
   void contextLoads() {
     Assertions.assertThat(recipeRepository).isNotNull();

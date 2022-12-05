@@ -25,6 +25,10 @@ public class RecipeControllerDeleteTest {
   @Autowired
   private MockMvc mockMvc;
 
+  /**
+   * Test to check if the delete recipe with valid id endpoint is working.
+   * @throws Exception
+   */
   @Test
   void deleteRecipe() throws Exception {
     this.mockMvc.perform(delete("/recipe/1")
@@ -32,6 +36,10 @@ public class RecipeControllerDeleteTest {
         .andExpect(status().isOk());
   }
 
+  /**
+   * Test to check if the delete recipe with invalid id endpoint is working as expected.
+   * @throws Exception
+   */
   @Test
   void deleteRecipe_InvalidId() throws Exception {
     this.mockMvc.perform(delete("/recipe/100")
@@ -39,6 +47,10 @@ public class RecipeControllerDeleteTest {
         .andExpect(status().isNotFound());
   }
 
+  /**
+   * Test to check if the delete recipe with invalid id (alphanumeric) endpoint is working as expected.
+   * @throws Exception
+   */
   @Test
   void deleteRecipe_InvalidIdFormat() throws Exception {
     this.mockMvc.perform(delete("/recipe/abc")
@@ -46,6 +58,10 @@ public class RecipeControllerDeleteTest {
         .andExpect(status().isInternalServerError());
   }
 
+  /**
+   * Test to check if delete all recipes endpoint is working as expected.
+   * @throws Exception
+   */
   @Test
   void deleteAllRecipes() throws Exception {
     this.mockMvc.perform(delete("/recipe")

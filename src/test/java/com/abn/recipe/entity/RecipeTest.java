@@ -3,7 +3,11 @@ package com.abn.recipe.entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class RecipeTest {
+public
+class RecipeTest {
+  /**
+   * Test to check if the Recipe class is loaded.
+   */
   @Test
   public void testRecipe() {
       Recipe recipe = new Recipe();
@@ -35,6 +39,9 @@ public class RecipeTest {
       Assertions.assertEquals(expectedRecipe.getPrepTime(), recipe.getPrepTime());
   }
 
+  /**
+   * Test to check if the to string method is working.
+   */
   @Test
   public void testRecipeToString() {
       Recipe recipe = new Recipe();
@@ -52,6 +59,9 @@ public class RecipeTest {
       Assertions.assertEquals(expectedRecipe, recipe.toString());
   }
 
+  /**
+   * Test to check if the equals method is working.
+   */
   @Test
   public void testRecipeEquals() {
       Recipe recipe = new Recipe(
