@@ -34,9 +34,9 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
       excludeIngredientsQuery = "AND r.ingredients NOT LIKE '%" + excludeIngredients + "%'";
     }
 
-    String includeIngredientsQuery = "";
+    String includeInstructionsQuery = "";
     if (includeIngredients != null) {
-      includeIngredientsQuery = "AND r.ingredients LIKE '%" + includeIngredients + "%'";
+      includeInstructionsQuery = "AND r.instructions LIKE '%" + includeIngredients + "%'";
     }
 
     String servingsQuery = "";
@@ -52,7 +52,7 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
     String query = "SELECT r FROM Recipe r WHERE 1=1 "
         + isVegetarianQuery
         + excludeIngredientsQuery
-        + includeIngredientsQuery
+        + includeInstructionsQuery
         + servingsQuery
         + instructionsQuery;
 
